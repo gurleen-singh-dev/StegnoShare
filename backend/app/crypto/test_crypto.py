@@ -1,5 +1,5 @@
-from encrypt import encrypt_aes256
-from decrypt import decrypt_aes256
+from backend.app.crypto.encrypt import encrypt_aes256
+from backend.app.crypto.decrypt import decrypt_aes256
 
 text = input("Enter you message: ")
 password = input("Enter the password: ")
@@ -12,4 +12,4 @@ decrypted = decrypt_aes256(encrypted, passkey)
 print("Decrypted: ", decrypted)
 
 assert text == decrypted
-print("\n✅ Encryption & Decryption Working Correctly")
+print("\nEncryption & Decryption Working Correctly")

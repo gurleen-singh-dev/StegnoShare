@@ -2,7 +2,7 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 import base64
-from key_derivation import derive_key
+from backend.app.crypto.key_derivation import derive_key
 
 
 def decrypt_aes256(enc_data: dict, password: str) -> str:
