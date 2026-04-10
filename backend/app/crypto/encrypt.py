@@ -3,7 +3,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 import os
 import base64
-from backend.app.crypto.key_derivation import derive_key
+from crypto.key_derivation import derive_key
 
 
 def encrypt_aes256(plaintext: str, password: str) -> dict:
@@ -30,10 +30,10 @@ def encrypt_aes256(plaintext: str, password: str) -> dict:
     }
 
 
-if __name__ == "__main__":
-    text = input("Enter message: ")
-    password = input("Enter password: ")
+# if __name__ == "__main__":
+#     text = input("Enter message: ")
+#     password = input("Enter password: ")
 
-    encrypted = encrypt_aes256(text, password)
-    print("\nEncrypted Data:")
-    print(encrypted)
+#     encrypted = encrypt_aes256(text, password)
+#     print("\nEncrypted Data:")
+#     print(encrypted)
