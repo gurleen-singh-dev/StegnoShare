@@ -1,25 +1,29 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import Home from "./pages/Home"
-import Send from "./pages/Send"
-import Receive from "./pages/Receive"
-import Result from "./pages/Result"
+import Embed from "./components/Embed";
+import Extract from "./components/Extract";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
+      <div>
+        <h1>Steganography App</h1>
 
-      <Routes>
+        {/* Navigation */}
+        <nav>
+          <Link to="/">Embed</Link> | <Link to="/extract">Extract</Link>
+        </nav>
 
-        <Route path="/" element={<Home />} />
-        <Route path="/send" element={<Send />} />
-        <Route path="/receive" element={<Receive />} />
-        <Route path="/result" element={<Result />} />
+        <hr />
 
-      </Routes>
-
-    </BrowserRouter>
-  )
+        {/* Routes */}
+        <Routes>
+          <Route path="/" element={<Embed />} />
+          <Route path="/extract" element={<Extract />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
