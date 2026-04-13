@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
@@ -40,3 +40,24 @@ async def embed(image: UploadFile = File(...),
         io.BytesIO(stego_bytes),
         media_type="image/png",
         headers={"Content-Disposition": "attachment; filename=stego.png"})
+
+
+@app.post("/extract")
+async def extract(image: UploadFile = File(...), password: str = Form(...)):
+    try:
+        image_bytes = await image.read()
+
+        # extract payload
+        payload = extract_data_from_image(image_bytes)
+
+        # bytes → dict
+        encrypted_payload_dict = json.loads(payload.decode())
+
+        # decrypt
+        decrypted = decrypt_aes256(encrypted_payload_dict, password)
+
+        return {"message": decrypted}
+
+    except Exception:
+        raise HTTPException(status_code=400,
+                            detail="Wrong password or corrupted image")
