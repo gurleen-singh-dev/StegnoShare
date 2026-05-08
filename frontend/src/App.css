@@ -65,7 +65,7 @@ body::after {
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  height: 64px;
+  height: 74px;
   border-bottom: 1px solid var(--border);
   background: rgba(3, 13, 10, 0.85);
   backdrop-filter: blur(16px);
@@ -82,17 +82,17 @@ body::after {
 }
 
 .navbar-icon {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid var(--neon);
-  border-radius: 6px;
+  height: 60px;
+  width: 60px;
+  /* border: 1.5px solid var(--neon); */
+  border-radius: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
   font-size: 14px;
   color: var(--neon);
-  box-shadow: 0 0 10px var(--neon-glow);
+  box-shadow: 0 0 15px var(--neon-glow);
 }
 
 .navbar-wordmark {

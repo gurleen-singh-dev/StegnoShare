@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
+import logo from "/public/logo.png";
 
 export default function Navbar() {
   return (
     <nav className="navbar">
       <NavLink to="/" className="navbar-brand">
-        <div className="navbar-icon">S</div>
+        <img src={logo} alt="S" className="navbar-icon" />
         <span className="navbar-wordmark">STEGNOSHARE</span>
       </NavLink>
 
