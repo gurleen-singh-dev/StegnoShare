@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="navbar">
       <NavLink to="/" className="navbar-brand">
         <div className="navbar-icon">S</div>
-        <span className="navbar-wordmark">STAGNO</span>
+        <span className="navbar-wordmark">STEGNOSHARE</span>
       </NavLink>
 
       <div className="navbar-nav">
