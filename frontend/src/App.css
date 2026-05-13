@@ -1,45 +1,93 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&display=swap');
 
-:root {
-  --neon:        #00ffa6;
-  --neon-dim:    rgba(0, 255, 166, 0.15);
-  --neon-glow:   rgba(0, 255, 166, 0.35);
-  --bg:          #030d0a;
-  --bg2:         #060f0b;
-  --card:        rgba(0, 255, 166, 0.03);
-  --border:      rgba(0, 255, 166, 0.18);
-  --border-focus:rgba(0, 255, 166, 0.55);
-  --text:        #c8ffe8;
-  --muted:       rgba(200, 255, 232, 0.45);
-  --danger:      #ff4d6d;
-  --danger-dim:  rgba(255, 77, 109, 0.12);
-  --mono:        'Share Tech Mono', monospace;
-  --sans:        'Syne', sans-serif;
+/* DARK THEME (default) */
+:root,
+[data-theme="dark"] {
+  --neon:         #00ffa6;
+  --neon-dim:     rgba(0, 255, 166, 0.12);
+  --neon-glow:    rgba(0, 255, 166, 0.35);
+  --bg:           #030d0a;
+  --bg2:          #060f0b;
+  --card:         rgba(0, 255, 166, 0.03);
+  --border:       rgba(0, 255, 166, 0.18);
+  --border-focus: rgba(0, 255, 166, 0.55);
+  --text:         #c8ffe8;
+  --muted:        rgba(200, 255, 232, 0.45);
+  --input-bg:     rgba(0, 0, 0, 0.30);
+  --navbar-bg:    rgba(3, 13, 10, 0.85);
+  --result-bg:    rgba(0, 255, 166, 0.04);
+  --danger:       #ff4d6d;
+  --danger-dim:   rgba(255, 77, 109, 0.12);
+  --danger-border:rgba(255, 77, 109, 0.35);
+  --grid-line:    rgba(0, 255, 166, 0.03);
+  --orb:          rgba(0, 255, 166, 0.07);
+  --btn-text:     #030d0a;
+  --toggle-bg:    rgba(0, 255, 166, 0.08);
+  --shadow:       0 0 40px rgba(0, 255, 166, 0.05);
 }
 
+/* LIGHT THEME  */
+[data-theme="light"] {
+  --neon:         #00825a;
+  --neon-dim:     rgba(0, 130, 90, 0.10);
+  --neon-glow:    rgba(0, 130, 90, 0.22);
+  --bg:           #f2f0eb;
+  --bg2:          #e8e5de;
+  --card:         rgba(255, 255, 255, 0.75);
+  --border:       rgba(0, 100, 70, 0.18);
+  --border-focus: rgba(0, 130, 90, 0.50);
+  --text:         #0e2a1f;
+  --muted:        rgba(14, 42, 31, 0.50);
+  --input-bg:     rgba(255, 255, 255, 0.80);
+  --navbar-bg:    rgba(242, 240, 235, 0.90);
+  --result-bg:    rgba(0, 130, 90, 0.06);
+  --danger:       #c0283e;
+  --danger-dim:   rgba(192, 40, 62, 0.08);
+  --danger-border:rgba(192, 40, 62, 0.30);
+  --grid-line:    rgba(0, 100, 70, 0.05);
+  --orb:          rgba(0, 130, 90, 0.06);
+  --btn-text:     #f2f0eb;
+  --toggle-bg:    rgba(0, 130, 90, 0.08);
+  --shadow:       0 4px 32px rgba(0, 80, 50, 0.10);
+}
+
+/* Reset  */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, #root {
   height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
+  font-family: 'Syne', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
+/* App shell  */
+.app-shell {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Animated grid background  */
+.app-shell::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0,255,166,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,166,0.03) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
+  transition: background-image 0.3s ease;
 }
 
-body::after {
+/* Radial glow orb  */
+.app-shell::after {
   content: '';
   position: fixed;
   top: -20vh;
@@ -47,31 +95,26 @@ body::after {
   transform: translateX(-50%);
   width: 80vw;
   height: 60vh;
-  background: radial-gradient(ellipse, rgba(0,255,166,0.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse, var(--orb) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+  transition: background 0.3s ease;
 }
 
-.app-shell {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
+/* Navbar  */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  height: 74px;
+  height: 64px;
   border-bottom: 1px solid var(--border);
-  background: rgba(3, 13, 10, 0.85);
+  background: var(--navbar-bg);
   backdrop-filter: blur(16px);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar-brand {
@@ -82,34 +125,37 @@ body::after {
 }
 
 .navbar-icon {
-  height: 60px;
-  width: 60px;
-  /* border: 1.5px solid var(--neon); */
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--neon);
   border-radius: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 14px;
   color: var(--neon);
-  box-shadow: 0 0 15px var(--neon-glow);
+  box-shadow: 0 0 10px var(--neon-glow);
+  transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .navbar-wordmark {
-  font-family: var(--sans);
+  font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 18px;
   letter-spacing: 3px;
   color: var(--text);
+  transition: color 0.3s;
 }
 
 .navbar-nav {
   display: flex;
+  align-items: center;
   gap: 4px;
 }
 
 .nav-link {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -133,7 +179,34 @@ body::after {
   box-shadow: 0 0 12px var(--neon-glow);
 }
 
+/* Theme toggle button  */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--toggle-bg);
+  color: var(--neon);
+  cursor: pointer;
+  margin-left: 8px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 10px var(--neon-glow);
+  background: var(--neon-dim);
+}
+
+/* Page content area  */
 .page-content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -141,13 +214,15 @@ body::after {
   padding: 60px 20px;
 }
 
+/* Page header  */
 .page-tag {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--neon);
   margin-bottom: 14px;
   opacity: 0.7;
+  transition: color 0.3s;
 }
 
 .page-title {
@@ -156,18 +231,21 @@ body::after {
   color: var(--text);
   margin-bottom: 10px;
   letter-spacing: -0.5px;
+  transition: color 0.3s;
 }
 
 .page-subtitle {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 13px;
   color: var(--muted);
   margin-bottom: 44px;
   max-width: 500px;
   text-align: center;
   line-height: 1.6;
+  transition: color 0.3s;
 }
 
+/* Main card  */
 .stagno-card {
   width: 100%;
   max-width: 600px;
@@ -176,8 +254,9 @@ body::after {
   border-radius: 16px;
   padding: 36px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 0 40px rgba(0, 255, 166, 0.05);
+  box-shadow: var(--shadow);
   animation: fadeUp 0.4s ease both;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes fadeUp {
@@ -185,20 +264,23 @@ body::after {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Field groups  */
 .field-group {
   margin-bottom: 24px;
 }
 
 .field-label {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 8px;
   display: block;
+  transition: color 0.3s;
 }
 
+/* Drop zone  */
 .drop-zone {
   position: relative;
   border: 1.5px dashed var(--border);
@@ -232,26 +314,31 @@ body::after {
   margin-bottom: 8px;
   color: var(--neon);
   opacity: 0.7;
+  transition: color 0.3s;
 }
 
 .drop-zone-text {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 13px;
   color: var(--muted);
+  transition: color 0.3s;
 }
 
 .drop-zone-text span {
   color: var(--neon);
+  transition: color 0.3s;
 }
 
 .drop-zone-filename {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 12px;
   color: var(--neon);
   margin-top: 6px;
   word-break: break-all;
+  transition: color 0.3s;
 }
 
+/* Preview image*/
 .image-preview {
   width: 100%;
   max-height: 180px;
@@ -261,19 +348,20 @@ body::after {
   border: 1px solid var(--border);
 }
 
+/* Textarea  */
 .stagno-textarea {
   width: 100%;
   min-height: 110px;
-  background: rgba(0,0,0,0.3);
+  background: var(--input-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 14px;
   color: var(--text);
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 13px;
   resize: vertical;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.3s, color 0.3s;
   line-height: 1.6;
 }
 
@@ -281,45 +369,45 @@ body::after {
 .stagno-textarea:focus { border-color: var(--border-focus); }
 
 .char-count {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
   color: var(--muted);
   text-align: right;
   margin-top: 5px;
 }
 
+/* Password input  */
 .stagno-input {
   width: 100%;
-  background: rgba(0,0,0,0.3);
+  background: var(--input-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 14px;
   color: var(--text);
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 13px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.3s, color 0.3s;
 }
 
 .stagno-input::placeholder { color: var(--muted); }
 .stagno-input:focus { border-color: var(--border-focus); }
 
+/* Button  */
 .stagno-btn {
   width: 100%;
   padding: 14px;
   background: var(--neon);
-  color: #030d0a;
+  color: var(--btn-text);
   border: none;
   border-radius: 8px;
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
   margin-top: 8px;
 }
 
@@ -345,8 +433,8 @@ body::after {
   display: inline-block;
   width: 12px;
   height: 12px;
-  border: 2px solid rgba(3,13,10,0.4);
-  border-top-color: #030d0a;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: var(--btn-text);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   margin-left: 10px;
@@ -357,53 +445,60 @@ body::after {
   to { transform: rotate(360deg); }
 }
 
+/* Result card (Extract)  */
 .result-card {
   width: 100%;
   max-width: 600px;
   margin-top: 24px;
-  background: rgba(0,255,166,0.04);
+  background: var(--result-bg);
   border: 1px solid var(--border-focus);
   border-radius: 12px;
   padding: 24px;
   animation: fadeUp 0.35s ease both;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .result-label {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
   letter-spacing: 2px;
   color: var(--neon);
   opacity: 0.7;
   margin-bottom: 10px;
+  transition: color 0.3s;
 }
 
 .result-message {
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 14px;
   color: var(--text);
-  background: rgba(0,0,0,0.35);
+  background: var(--input-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 14px;
   white-space: pre-wrap;
   word-break: break-word;
   line-height: 1.65;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
+/* Error state  */
 .error-card {
   width: 100%;
   max-width: 600px;
   margin-top: 20px;
   background: var(--danger-dim);
-  border: 1px solid rgba(255,77,109,0.35);
+  border: 1px solid var(--danger-border);
   border-radius: 10px;
   padding: 14px 18px;
-  font-family: var(--mono);
+  font-family: 'Share Tech Mono', monospace;
   font-size: 12px;
   color: var(--danger);
   animation: fadeUp 0.3s ease both;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
 
+/* Divider  */
 .stagno-divider {
   border: none;
   border-top: 1px solid var(--border);
