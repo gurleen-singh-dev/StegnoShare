@@ -127,18 +127,71 @@ http://localhost:5173
 
 Open another terminal:
 
+### 1. Navigate to Backend Directory
+
 ```bash
 cd backend/app
+```
+
+---
+
+### 2. Create a Virtual Environment
+
+#### Windows
+
+```bash
+python -m venv venv
+```
+
+#### macOS / Linux
+
+```bash
+python3 -m venv venv
+```
+
+---
+
+### 3. Activate the Virtual Environment
+
+#### Windows (PowerShell)
+
+```bash
+venv\Scripts\activate
+```
+
+#### Windows (Command Prompt)
+
+```bash
+venv\Scripts\activate.bat
+```
+
+#### macOS / Linux
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+### 4. Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+---
+
+### 5. Start the FastAPI Server
+
+```bash
 uvicorn main:app --reload
 ```
 
 Backend will start on:
 
-```
+```text
 http://127.0.0.1:8000
 ```
-
 ---
 
 ## API Endpoints
