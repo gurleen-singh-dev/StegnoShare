@@ -130,7 +130,7 @@ Open another terminal:
 ### 1. Navigate to Backend Directory
 
 ```bash
-cd backend/app
+cd backend
 ```
 
 ---
